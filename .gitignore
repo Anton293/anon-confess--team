@@ -1,0 +1,10 @@
+*.log
+*.env
+.vscode/
+.idea/
+__pycache__
+*.pyc
+
+
+./github_deploy_key
+

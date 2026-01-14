@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: anon_confess
+    env_file:
+      - /opt/anon-confess/.env
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 10
+        window: 120s
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 300M
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: anon_confess_postgres
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - /opt/anon-confess/.env # POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 128M
+
+  redis:
+    image: redis:alpine
+    container_name: anon_confess_redis
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 5
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 64M
+
+volumes:
+  postgres_data:
+  redis_data:
