@@ -9,6 +9,7 @@ jobs:
   # ФРОНТЕНД
   deploy-frontend:
     runs-on: ubuntu-latest
+    environment: SSH_HOST
     steps:
       - name: Start deployment
         run: echo "Starting frontend deployment process..."
@@ -51,6 +52,7 @@ jobs:
   # БЕКЕНД
   deploy-backend:
     runs-on: ubuntu-latest
+    environment: SSH_HOST
     needs: deploy-frontend
     steps:
       - name: Start backend deployment
