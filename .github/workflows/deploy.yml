@@ -30,12 +30,26 @@ jobs:
       #     npm ci
       #     npm run build
 
+      - name: Debug Secrets Availability
+        if: always()
+        run: |
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "❌ ERROR: SSH_HOST is EMPTY! Check your GitHub Secrets settings."
+            exit 1
+          else
+            echo "✅ OK: SSH_HOST is found (length is not zero)."
+          fi
+          
+          if [ -z "${{ secrets.SSH_KEY }}" ]; then
+            echo "❌ ERROR: SSH_KEY is EMPTY!"
+          else
+             echo "✅ OK: SSH_KEY is found."
+          fi
+
       - name: Debug Connectivity
         run: |
-          echo "Pinging host... ${{ secrets.SSH_HOST }}"
-          ping -c 3 ${{ secrets.SSH_HOST }}
           echo "Checking port..."
-          nc -zv ${{ secrets.SSH_HOST }} ${{ secrets.SSH_PORT }}
+          nc -v -z -w 5 ${{ secrets.SSH_HOST }} ${{ secrets.SSH_PORT }}
       
       - name: Copy files to Server
         uses: appleboy/scp-action@master
