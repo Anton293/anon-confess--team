@@ -40,7 +40,6 @@ SSH_KEY - вміст ~/.ssh/id_rsa
 ```
 sudo adduser --disabled-password --gecos "" gh_deploy
 sudo usermod -aG docker gh_deploy
-
 ```
 
 ### get key for gh_deploy and move to github actions
@@ -53,6 +52,7 @@ ssh-keygen -t ed25519 -C "github-actions" -f ./github_deploy_key
 ### ./github_deploy_key.pub add to file on server:
 ```
 sudo vim /home/gh_deploy/.ssh/authorized_keys
+chmod -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
 ```
 
 TODO: Settings NGINX
