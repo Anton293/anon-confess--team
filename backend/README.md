@@ -20,6 +20,8 @@ POSTGRES_DB=anon_db
 
 DATABASE_URL=postgresql://myuser:mypassword@postgres:5432/anon_db
 REDIS_URL=redis://redis:6379/0
+
+SESSION_SECRET_KEY=...
 ```
 
 
@@ -38,12 +40,19 @@ SSH_KEY - вміст ~/.ssh/id_rsa
 ```
 sudo adduser --disabled-password --gecos "" gh_deploy
 sudo usermod -aG docker gh_deploy
+
 ```
 
 ### get key for gh_deploy and move to github actions
 
 ```
 ssh-keygen -t ed25519 -C "github-actions" -f ./github_deploy_key
+```
+
+
+### ./github_deploy_key.pub add to file on server:
+```
+sudo vim /home/gh_deploy/.ssh/authorized_keys
 ```
 
 TODO: Settings NGINX

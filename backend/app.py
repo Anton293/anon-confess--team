@@ -25,4 +25,4 @@ app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Hello World!"}
