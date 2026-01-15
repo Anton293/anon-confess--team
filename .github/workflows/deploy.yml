@@ -13,8 +13,8 @@ jobs:
       - name: Start deployment
         run: echo "Starting frontend deployment process..."
       
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       # - name: Setup Node.js
       #   uses: actions/setup-node@v4
