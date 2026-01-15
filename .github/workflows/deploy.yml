@@ -28,6 +28,13 @@ jobs:
       #     cd frontend
       #     npm ci
       #     npm run build
+
+      - name: Debug Connectivity
+        run: |
+          echo "Pinging host..."
+          ping -c 3 ${{ secrets.SSH_HOST }}
+          echo "Checking port..."
+          nc -zv ${{ secrets.SSH_HOST }} ${{ secrets.SSH_PORT }}
       
       - name: Copy files to Server
         uses: appleboy/scp-action@master
