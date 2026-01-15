@@ -35,6 +35,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           source: "frontend/*" # TODO: в залежності де build: dist/* або build/*
           target: "/var/www/demo.harkushyn.com"
           strip_components: 1 # щоб не копіювати папку frontend
