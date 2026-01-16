@@ -3,6 +3,7 @@
 cd /opt/
 git clone git@github.com:Anton293/anon-confess--team.git anon-confess
 git config --global --add sage.directory /opt/anon-confess
+chown -R gh_deploy:gh_deploy /opt/anon-confess
 ```
 
 
@@ -53,7 +54,7 @@ ssh-keygen -t ed25519 -C "github-actions" -f ./github_deploy_key
 ### ./github_deploy_key.pub add to file on server:
 ```
 sudo vim /home/gh_deploy/.ssh/authorized_keys
-chmod -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
+chown -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
 ```
 
 TODO: Settings NGINX
