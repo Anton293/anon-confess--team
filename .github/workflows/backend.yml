@@ -1,0 +1,26 @@
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - 'docker-compose.yml'
+  
+  deploy-backend:
+    runs-on: ubuntu-latest
+    environment: SSH_HOST
+    steps:
+      # - name: Start backend deployment
+      #   run: echo "Starting backend deployment process..."
+
+      - name: Deploy Backend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }} 
+          script: |
+            cd /opt/anon-confess
+            git pull origin master
+            docker-rollout -f docker-compose.yml backend
+
+# docker-compose up -d --build --force-recreate backend
