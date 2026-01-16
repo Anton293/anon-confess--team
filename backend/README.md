@@ -2,6 +2,7 @@
 ```bash
 cd /opt/
 git clone git@github.com:Anton293/anon-confess--team.git anon-confess
+git config --global --add sage.directory /opt/anon-confess
 ```
 
 
