@@ -11,8 +11,8 @@ app = FastAPI()
 
 
 origins = [
-    "http://localhost",
-    "http://localhost:3000",
+    "http://localhost", # TODO: remove this in production
+    "http://localhost:3000", # TODO: remove this in production
     "http://127.0.0.1:8000",
     "https://demo.harkushyn.com",
     "https://harkushyn.com",
