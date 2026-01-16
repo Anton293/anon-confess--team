@@ -30,22 +30,6 @@ jobs:
       #     npm ci
       #     npm run build
 
-      - name: Debug Secrets Availability
-        if: always()
-        run: |
-          if [ -z "${{ secrets.SSH_HOST }}" ]; then
-            echo "❌ ERROR: SSH_HOST is EMPTY! Check your GitHub Secrets settings."
-            exit 1
-          else
-            echo "✅ OK: SSH_HOST is found (length is not zero)."
-          fi
-          
-          if [ -z "${{ secrets.SSH_KEY }}" ]; then
-            echo "❌ ERROR: SSH_KEY is EMPTY!"
-          else
-             echo "✅ OK: SSH_KEY is found."
-          fi
-
       - name: Debug Connectivity
         run: |
           echo "Checking port..."

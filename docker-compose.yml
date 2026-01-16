@@ -1,5 +1,11 @@
 version: '3.8'
 
+
+networks:
+  anon_network:
+    driver: bridge
+
+
 services:
   backend:
     build: ./backend
@@ -11,6 +17,8 @@ services:
     depends_on:
       - postgres
       - redis
+    networks:
+      - anon_network
     deploy:
       restart_policy:
         condition: on-failure
@@ -26,6 +34,8 @@ services:
     image: postgres:15-alpine
     container_name: anon_confess_postgres
     restart: always
+    networks:
+      - anon_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
@@ -40,6 +50,10 @@ services:
     image: redis:alpine
     container_name: anon_confess_redis
     command: redis-server --save 60 1 --loglevel warning
+    networks:
+      - anon_network
+    env_file:
+      - /opt/anon-confess/.env
     volumes:
       - redis_data:/data
     deploy:
