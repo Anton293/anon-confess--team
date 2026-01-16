@@ -1,9 +1,12 @@
 on:
   push:
+    branches:
+      - master
     paths:
       - 'frontend/**'
 
-  # ФРОНТЕНД
+
+jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
     environment: SSH_HOST
