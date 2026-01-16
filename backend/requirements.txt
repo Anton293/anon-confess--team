@@ -2,3 +2,11 @@ fastapi
 uvicorn[standard]
 gunicorn
 python-dotenv
+itsdangerous
+
+
+asyncpg
+SQLAlchemy
+alembic
+redis>=4.2.0
+

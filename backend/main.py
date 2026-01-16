@@ -7,6 +7,27 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 
+import os
+from redis import asyncio as aioredis
+
+
+REDIS_URL = os.getenv("REDIS_URL")
+
+if not REDIS_URL:
+    logging.error("REDIS_URL environment variable is not set!")
+    raise ValueError("REDIS_URL environment variable is not set!")
+
+
+async def get_redis():
+    redis = await aioredis.from_url(REDIS_URL, decode_responses=True)
+    try:
+        yield redis
+    finally:
+        await redis.close()
+
+
+
+
 app = FastAPI()
 
 
