@@ -55,6 +55,9 @@ if os.getenv("APP_ENV") == "production" and (not secret_key or secret_key == "de
     logging.error("In production, SESSION_SECRET_KEY must be set to a secure value!")
     raise ValueError("In production, SESSION_SECRET_KEY must be set to a secure value!")
 
+if "http://localhost" in origins or "http://localhost:3000" in origins:
+    logging.warning("WARNING: CORS is allowing localhost origins. This should be removed in production!")
+
 
 app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
