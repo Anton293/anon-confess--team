@@ -6,7 +6,7 @@ git config --global --add sage.directory /opt/anon-confess
 chown -R gh_deploy:gh_deploy /opt/anon-confess
 ```
 
-### install docker-rollout
+### install docker-rollout. TODO: delete this.
 ```bash
 curl -L https://raw.githubusercontent.com/wowu/docker-rollout/master/docker-rollout -o /usr/local/bin/docker-rollout
 chmod +x /usr/local/bin/docker-rollout
