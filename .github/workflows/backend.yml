@@ -2,9 +2,10 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - 'backend/**'
-    #   - 'docker-compose.yml' TODO: uncomment!
+    paths:
+      - 'backend/**'
+      - 'docker-compose.yml'
+      - 'workflows/backend.yml'
 
   pull_request:
     branches:

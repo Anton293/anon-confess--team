@@ -3,7 +3,7 @@ Add API routers here.
 TODO: add api this!!!
 """
 from fastapi import APIRouter
-from app.api.v1.endpoints import users
+from api.v1.endpoints import example
 
 api_router = APIRouter()
-api_router.include_router(users.router, prefix="/", tags=["base"])
+api_router.include_router(example.router, prefix="/", tags=["base"])

@@ -1,5 +1,8 @@
 *.log
 *.env
+.env.local
+.env.*.local
+.venv/
 .vscode/
 .idea/
 __pycache__
@@ -8,3 +11,8 @@ __pycache__
 
 ./github_deploy_key
 
+
+
+/.pytest_cache/
+*/.pytest_cache/
+versions/

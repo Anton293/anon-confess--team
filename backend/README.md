@@ -65,4 +65,12 @@ sudo vim /home/gh_deploy/.ssh/authorized_keys
 chown -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
 ```
 
+
+### alembic
+```
+cd backend/src
+alembic init alembic
+
+```
+
 TODO: Settings NGINX
