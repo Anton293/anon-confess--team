@@ -6,7 +6,7 @@ from db.redis import get_redis_url
 router = APIRouter()
 
 
-@router.post("/")
+@router.get("/")
 async def create_example():
     """
     Docstring for create_example

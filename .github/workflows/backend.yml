@@ -5,7 +5,7 @@ on:
     paths:
       - 'backend/**'
       - 'docker-compose.yml'
-      - 'workflows/backend.yml'
+      - '.github/workflows/backend.yml'
 
   pull_request:
     branches:
