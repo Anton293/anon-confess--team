@@ -6,12 +6,6 @@ git config --global --add sage.directory /opt/anon-confess
 chown -R gh_deploy:gh_deploy /opt/anon-confess
 ```
 
-### install docker-rollout. TODO: delete this.
-```bash
-curl -L https://raw.githubusercontent.com/wowu/docker-rollout/master/docker-rollout -o /usr/local/bin/docker-rollout
-chmod +x /usr/local/bin/docker-rollout
-```
-
 
 ### Create file on server /opt/anon-confess/.env
 
@@ -52,7 +46,9 @@ sudo adduser --disabled-password --gecos "" gh_deploy
 sudo usermod -aG docker gh_deploy
 ```
 
-### get key for gh_deploy and move to github actions
+### get key for gh_deploy and move to github actions.
+
+*Base instruction: Move github_deploy_key > github actions; Move github_deploy_key.pub > /home/gh_deploy/.ssh/authorized_keys.*
 
 ```
 ssh-keygen -t ed25519 -C "github-actions" -f ./github_deploy_key
@@ -66,11 +62,6 @@ chown -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
 ```
 
 
-### alembic
-```
-cd backend/src
-alembic init alembic
+### Settings NGINX
 
-```
 
-TODO: Settings NGINX
