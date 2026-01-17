@@ -76,8 +76,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: NEW_TAG,REGISTRY,IMAGE_NAME,GITHUB_TOKEN,USERNAME
+          envs: NEW_TAG,REGISTRY,USERNAME,GITHUB_TOKEN
           script: |
+            set -e
+            
             cd /opt/anon-confess
             git fetch origin master
             git reset --hard origin/master
