@@ -16,6 +16,10 @@ on:
       - '.github/workflows/backend.yml'
 
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-backend
@@ -93,6 +97,8 @@ jobs:
             else
               echo "IMAGE_TAG=$NEW_TAG" >> .env
             fi
+
+            #TODO: add migration commands alembic & proxy_pass
             
             echo "[INFO] 🚀 Deploying version: $NEW_TAG"
             docker-compose pull backend

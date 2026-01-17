@@ -1,10 +1,14 @@
 
-/backend/   @Anton293
-/.github/   @Anton293
-/.gitignore @Anton293
-
-
+/backend/            @Anton293
+/.github/            @Anton293
+/.gitignore          @Anton293
 /docker-compose.yml  @Anton293
+/Makefile            @Anton293
+/README.md           @Anton293
 
 
-/frontend/ @Anton293
+/frontend/           @Anton293
+
+
+
+

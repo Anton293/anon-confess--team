@@ -14,6 +14,10 @@ on:
       - '.github/workflows/backend.yml'
 
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
