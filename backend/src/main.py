@@ -14,7 +14,7 @@ from src.core.logger import logger
 
 logger.info("app_started", service="backend")
 
-app = FastAPI(title=settings.PROJECT_NAME)
+app = FastAPI(title=settings.PROJECT_NAME, root_path="/api")
 app.include_router(api_router, prefix=settings.API_V1_STR)
 app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET_KEY)
 
