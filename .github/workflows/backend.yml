@@ -79,6 +79,8 @@ jobs:
           envs: NEW_TAG,REGISTRY,IMAGE_NAME,GITHUB_TOKEN,USERNAME
           script: |
             cd /opt/anon-confess
+            git fetch origin master
+            git reset --hard origin/master
             
             echo $GITHUB_TOKEN | docker login $REGISTRY -u $USERNAME --password-stdin
             

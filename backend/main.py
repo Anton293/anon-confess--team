@@ -64,7 +64,6 @@ app.add_middleware(SessionMiddleware, secret_key=secret_key)
 
 
 # API endpoints on /api/
-
 @app.get("/")
 async def root():
     """head page"""
