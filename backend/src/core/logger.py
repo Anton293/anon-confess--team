@@ -8,9 +8,9 @@ shared_processors = [
     structlog.contextvars.merge_contextvars,
     structlog.processors.add_log_level,
     structlog.processors.TimeStamper(fmt="iso"),
-    structlog.processors.CallSiteParameterAdder(
-        [structlog.processors.CallSiteParameter.FILENAME, 
-         structlog.processors.CallSiteParameter.LINENO]
+    structlog.processors.CallsiteParameterAdder(
+        [structlog.processors.CallsiteParameter.FILENAME, 
+        structlog.processors.CallsiteParameter.LINENO]
     ),
 ]
 
