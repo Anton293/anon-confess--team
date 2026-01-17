@@ -9,8 +9,8 @@ __pycache__
 *.pyc
 
 
-./github_deploy_key
-
+github_deploy_key
+github_deploy_key.pub
 
 
 /.pytest_cache/

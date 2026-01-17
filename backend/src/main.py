@@ -9,27 +9,19 @@ from redis import asyncio as aioredis
 
 from src.api.v1 import api_router
 from src.core.config import settings
+from src.core.logger import logger
 
 
-import logging
-logging.basicConfig(level=logging.INFO)
-
+logger.info("app_started", service="backend")
 
 app = FastAPI(title=settings.PROJECT_NAME)
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 # CORS
-origins = [
-    "http://localhost", # TODO: remove this in production
-    "http://localhost:3000", # TODO: remove this in production
-    "http://127.0.0.1:8000",
-    "https://demo.harkushyn.com",
-    "https://harkushyn.com",
-]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.BACKEND_CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -38,30 +30,15 @@ app.add_middleware(
 
 # CHECK START
 
-if not settings.REDIS_URL:
-    logging.error("REDIS_URL environment variable is not set!")
-    raise ValueError("REDIS_URL environment variable is not set!")
-
-if not settings.DATABASE_URL:
-    logging.error("DATABASE_URL environment variable is not set!")
-    raise ValueError("DATABASE_URL environment variable is not set!")
-
-
-secret_key = os.getenv("SESSION_SECRET_KEY", "dev-secret-key-unsafe")
-if not secret_key or secret_key == "dev-secret-key-unsafe":
-    logging.warning("WARNING: Using unsafe session secret key!")
-
-if os.getenv("APP_ENV") == "production" and (not secret_key or secret_key == "dev-secret-key-unsafe"):
-    logging.error("In production, SESSION_SECRET_KEY must be set to a secure value!")
-    raise ValueError("In production, SESSION_SECRET_KEY must be set to a secure value!")
-
-if "http://localhost" in origins or "http://localhost:3000" in origins:
-    logging.warning("WARNING: CORS is allowing localhost origins. This should be removed in production!")
-
+if settings.APP_ENV != "production":
+    logger.warning(
+        "Application is running in non-production mode.",
+        env=settings.APP_ENV
+    )
 
 # END CHECK
 
-app.add_middleware(SessionMiddleware, secret_key=secret_key)
+app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET_KEY)
 app.include_router(api_router, prefix="/api")
 
 
@@ -119,7 +96,7 @@ async def health_check():
         )
 
     except Exception as e:
-        logging.exception("Healthcheck failed")
+        logger.error("Health check failed", error=str(e))
         report["checks"]["redis"]["status"] = "ERROR"
         report["checks"]["redis"]["details"]["exception"] = str(e)
         report["status"] = "ERROR"
