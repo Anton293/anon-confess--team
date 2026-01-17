@@ -11,6 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 REDIS_URL = os.getenv("REDIS_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not REDIS_URL:
     logging.error("REDIS_URL environment variable is not set!")

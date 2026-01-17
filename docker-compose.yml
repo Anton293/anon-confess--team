@@ -22,11 +22,11 @@ services:
       - anon_network
     deploy:
 
-      healthcheck:
-        test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/health"]
-        interval: 10s
-        timeout: 5s
-        retries: 3
+      # healthcheck:
+      #   test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/health"]
+      #   interval: 10s
+      #   timeout: 5s
+      #   retries: 3
       
       restart_policy:
         condition: on-failure
