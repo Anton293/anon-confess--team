@@ -8,7 +8,8 @@ networks:
 
 services:
   backend:
-    build: ./backend
+    #build: ./backend
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER_LOWERCASE}/anon-confess-backend:${IMAGE_TAG:-latest}
     container_name: anon_confess
     env_file:
       - /opt/anon-confess/.env

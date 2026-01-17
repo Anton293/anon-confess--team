@@ -4,6 +4,12 @@ on:
       - master
     paths:
       - 'frontend/**'
+  
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'frontend/**'
 
 
 jobs:

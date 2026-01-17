@@ -22,6 +22,8 @@ nano /opt/anon-confess/.env
 *EXAMLE!!! Replace passwords!!!*
 
 ```bash
+APP_ENV=production
+
 POSTGRES_USER=myuser
 POSTGRES_PASSWORD=mypassword
 POSTGRES_DB=anon_db

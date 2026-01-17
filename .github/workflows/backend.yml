@@ -6,27 +6,93 @@ on:
       - 'backend/**'
       - 'docker-compose.yml'
 
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'backend/**'
+      - 'docker-compose.yml'
+
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-backend
+
+
 jobs:
-  deploy-backend:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{ steps.meta.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,format=long
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+
+
+  deploy:
+    needs: build-and-push
     runs-on: ubuntu-latest
     environment: SSH_HOST
     steps:
-      # - name: Start backend deployment
-      #   run: echo "Starting backend deployment process..."
-
-      - name: Deploy Backend
+      - name: Deploy to Server
         uses: appleboy/ssh-action@master
+        env:
+
+          NEW_TAG: ${{ needs.build-and-push.outputs.image_tag }}
+          REGISTRY: ${{ env.REGISTRY }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          USERNAME: ${{ github.actor }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }} 
+          port: ${{ secrets.SSH_PORT }}
+          envs: NEW_TAG,REGISTRY,IMAGE_NAME,GITHUB_TOKEN,USERNAME
           script: |
             cd /opt/anon-confess
-            git fetch origin master
-            git reset --hard origin/master
-            docker-rollout -f docker-compose.yml backend
+            
+            echo $GITHUB_TOKEN | docker login $REGISTRY -u $USERNAME --password-stdin
+            
+            if grep -q "IMAGE_TAG=" .env; then
+              sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$NEW_TAG/" .env
+            else
+              echo "IMAGE_TAG=$NEW_TAG" >> .env
+            fi
+            
+            echo "[INFO] 🚀 Deploying version: $NEW_TAG"
+            docker-compose pull backend
+            docker-compose up -d --no-deps backend
             docker image prune -f
+
 
 
 # docker-compose up -d --build --force-recreate backend
