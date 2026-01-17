@@ -4,7 +4,7 @@ on:
       - master
     # paths:
     #   - 'backend/**'
-    #   - 'docker-compose.yml'
+    #   - 'docker-compose.yml' TODO: uncomment!
 
   pull_request:
     branches:
