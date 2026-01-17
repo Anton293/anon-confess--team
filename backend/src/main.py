@@ -7,8 +7,8 @@ import os
 from redis import asyncio as aioredis
 
 
-from api.v1 import api_router
-from core.config import settings
+from src.api.v1 import api_router
+from src.core.config import settings
 
 
 import logging

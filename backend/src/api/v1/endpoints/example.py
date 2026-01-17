@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-from db.postgres import get_database_url
-from db.redis import get_redis_url
+from src.db.postgres import get_database_url
+from src.db.redis import get_redis_url
 
 
 router = APIRouter()
