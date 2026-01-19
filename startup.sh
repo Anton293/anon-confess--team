@@ -140,7 +140,9 @@ sudo -u gh_deploy docker-compose -f /opt/anon-confess/docker-compose.yml up -d -
 echo "[✅] Started docker compose!"
 
 
-read -p "press [ENTER] to continue after backend is healthy..."
+echo "[✅] Ready base settings project for ci/cd."
+echo ""
+read -p "⚠️⚠️⚠️ press [ENTER] to continue after backend is healthy..."
 sudo -u gh_deploy docker-compose exec -T backend sh -c "alembic revision --autogenerate -m 'Initial structure'"
 sudo -u gh_deploy docker-compose exec -T backend sh -c "alembic upgrade head"
 
