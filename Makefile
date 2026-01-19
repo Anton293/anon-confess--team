@@ -50,3 +50,22 @@ test:
 	docker-compose exec -T  backend pytest
 
 
+
+
+
+
+disk-usage:
+	@echo "[INFO] Checking disk usage..."
+	df -h
+	@echo "[INFO] Checking Docker disk usage..."
+	docker system df -v
+	@echo "[INFO] Listing Docker volumes..."
+	docker volume ls
+	@echo "[INFO] Listing Docker images..."
+	docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}\t{{.CreatedSince}}"
+
+stats:
+	docker stats --no-stream
+
+logs:
+	docker-compose logs -f backend
