@@ -102,10 +102,12 @@ jobs:
             
             echo "[INFO] 🚀 Deploying version: $NEW_TAG"
             docker-compose pull backend
-            docker-compose up -d --no-deps backend
 
             echo "[INFO] 🛠 Running DB Migrations..."
-            docker-compose exec -T backend alembic upgrade head
+            docker-compose run --rm backend alembic upgrade head
+
+            echo "[INFO] 🚢 Starting backend service..."
+            docker-compose up -d --no-deps backend
 
             docker image prune -f
 
