@@ -53,11 +53,14 @@ class Settings(BaseSettings):
 
     # properties
     @property
-    def get_database_url(self) -> str:
-        return str(self.DATABASE_URL)
+    def database_url(self) -> str:
+        return str(self.DATABASE_URL).replace(
+            "postgresql://",
+            "postgresql+psycopg_async://",
+        )
     
     @property
-    def get_redis_url(self) -> str:
+    def redis_url(self) -> str:
         return str(self.REDIS_URL)
     
     model_config = SettingsConfigDict(

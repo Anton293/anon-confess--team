@@ -29,6 +29,7 @@ SESSION_SECRET_KEY=...
 ```
 
 
+## Create user & add to github
 
 ### Setting github actions
 
@@ -62,6 +63,24 @@ chown -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
 ```
 
 
+
+## Init migration db
+
+### alembic: /backend/src
+```bash
+alembic revision --autogenerate -m "Initial tables"
+```
+
+
 ### Settings NGINX
 
 
+
+
+## Local test
+```
+cd backend
+pip install -r requirements.txt
+docker run -d --name postgres --env-file .env -p 5432:5432 -v postgres_data:/var/lib/postgresql/data-test postgres:16
+alembic revision --autogenerate -m "Initial"
+```

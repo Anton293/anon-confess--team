@@ -21,14 +21,10 @@ from src.core.config import settings
 
 # DSN for connection to PostgreSQL
 #DSN = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}{'' if not POSTGRES_USE_SSL else '?sslmode=require'}"
-DSN = settings.get_database_url()
+DSN = settings.database_url
 
 # Ініціалізація бази даних (ORM)
 Base = declarative_base()
-engine = create_engine(DSN)
-Session = sessionmaker(bind=engine)
-session = Session()
-
 
 
 class User(Base):
