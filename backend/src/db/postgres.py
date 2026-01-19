@@ -86,6 +86,7 @@ class Room(Base):
     own_token_hash = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+
 # Створення таблиць
 # Base.metadata.create_all(engine) # WARNING: Use alembic migrations instead! `alembic revision --autogenerate -m "Initial structure"`
 
