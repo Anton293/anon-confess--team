@@ -45,7 +45,6 @@ class User(Base):
     __table_args__ = (
         Index('idx_email', 'email'),
         Index('idx_token', 'token'),
-        Index('idx_link_password_hash', 'link_password_hash'),
     )
 
 
