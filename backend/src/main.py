@@ -61,7 +61,7 @@ async def health_check():
         }
     }
 
-    redis = await aioredis.from_url(settings.REDIS_URL, decode_responses=True)
+    redis = await aioredis.from_url(str(settings.REDIS_URL), decode_responses=True)
 
     try:
         # ping

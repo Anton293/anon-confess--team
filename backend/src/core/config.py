@@ -25,6 +25,7 @@ class Settings(BaseSettings):
         "https://harkushyn.com",
     ]
 
+
     @field_validator("APP_ENV")
     @classmethod
     def validate_env(cls, v: str) -> str:
@@ -48,7 +49,17 @@ class Settings(BaseSettings):
         if len(v) < 32:
             raise ValueError("SESSION_SECRET_KEY is too short! Min 32 chars.")
         return v
+    
 
+    # properties
+    @property
+    def get_database_url(self) -> str:
+        return str(self.DATABASE_URL)
+    
+    @property
+    def get_redis_url(self) -> str:
+        return str(self.REDIS_URL)
+    
     model_config = SettingsConfigDict(
         env_file=".env",
         case_sensitive=True,
