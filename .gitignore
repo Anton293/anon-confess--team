@@ -9,6 +9,8 @@ logs/
 .env.*.local
 .env.*
 env/
+!env.py
+.env
 
 
 .venv/

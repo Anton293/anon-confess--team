@@ -13,6 +13,8 @@ services:
     container_name: anon_confess
     env_file:
       - /opt/anon-confess/.env
+    volumes:
+      - /opt/anon-confess/backend/src/almbic/versions:/app/src/almbic/versions
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:

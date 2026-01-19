@@ -101,8 +101,15 @@ jobs:
             #TODO: add migration commands alembic & proxy_pass
             
             echo "[INFO] 🚀 Deploying version: $NEW_TAG"
+            cd /opt/anon-confess/backend/src
+            alembic upgrade head
+            cd /opt/anon-confess
             docker-compose pull backend
             docker-compose up -d --no-deps backend
+
+            echo "[INFO] 🛠 Running DB Migrations..."
+            docker-compose exec -T backend alembic upgrade head
+
             docker image prune -f
 
 
