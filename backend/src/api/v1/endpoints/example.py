@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from src.db.postgres import get_database_url
+from src.db.postgres import add_user
 from src.db.redis import get_redis_url
 
 
