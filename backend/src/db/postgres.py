@@ -34,7 +34,6 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=True)
-    link_password_hash = Column(String, nullable=True)
     token = Column(String, unique=True, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     ip_address = Column(String, nullable=True)
@@ -78,6 +77,15 @@ class BannedFingerprint(Base):
         Index('idx_fingerprint', 'fingerprint'),
         UniqueConstraint('fingerprint', name='unique_fingerprint'),
     )
+
+class Room(Base):
+    """Клас для таблиці кімнат."""
+    __tablename__ = 'rooms'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    own_token_hash = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
 # Створення таблиць
 # Base.metadata.create_all(engine) # WARNING: Use alembic migrations instead! `alembic revision --autogenerate -m "Initial structure"`

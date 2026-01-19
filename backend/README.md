@@ -68,7 +68,8 @@ chown -R gh_deploy:gh_deploy /var/www/<name_dir_project_in_nginx>/
 
 ### alembic: /backend/src
 ```bash
-alembic revision --autogenerate -m "Initial tables"
+docker-compose exec -T backend sh -c "alembic revision --autogenerate -m 'Initial structure'"
+docker-compose exec -T backend sh -c "alembic upgrade head"
 ```
 
 
@@ -77,7 +78,7 @@ alembic revision --autogenerate -m "Initial tables"
 
 
 
-## Local test
+## Local dev
 ```
 cd backend
 pip install -r requirements.txt
