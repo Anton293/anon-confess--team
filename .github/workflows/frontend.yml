@@ -11,7 +11,7 @@ on:
       - master
     paths:
       - 'frontend/**'
-      - '.github/workflows/backend.yml'
+      - '.github/workflows/frontend.yml'
 
 
 concurrency:
